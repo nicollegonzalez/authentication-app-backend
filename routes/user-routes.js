@@ -2,7 +2,7 @@ const express    = require('express');
 const router     = express.Router();
 const bcrypt     = require('bcryptjs');
 const passport   = require('passport');
-const User       = require('../models/user-model');
+const User       = require('../models/User');
 
 //Start signup post route
 /*Using res.status() with error code and 
@@ -12,9 +12,10 @@ router.post('/signup', (req, res, next) => {
     const theUsername = req.body.username;
     const thePassword = req.body.password;
     // const theEmail = req.body.email; //Not signing up with email yet
-
+    console.log("*******",req.body.username);
+    console.log("------",req.body.password);
   
-    if (!username || !password) {
+    if (!theUsername || !thePassword) {
       res.status(400).json({ message: 'Provide username and password' }); //Personalize message!!
       return;
     }
@@ -53,15 +54,16 @@ router.post('/signup', (req, res, next) => {
             // Automatically logingin user after sign up
             // here .login() is a predefined passport method
             req.login(theNewUser, (err) => {
-
+                console.log(err);
                 if (err) {
-                    res.status(500).json({ message: 'Login after signup went bad.' });
+                    // res.status(500).json({ message: 'Login after signup went bad.' });
+                    res.status(500).json({ message: err });
                     return;
                 }
             
                 // Sending the user's information to the frontend
                 // We can also use: res.status(200).json(req.user);
-                res.status(200).json(aNewUser);
+                res.status(200).json(theNewUser);
             });
         });
     });
@@ -96,7 +98,7 @@ router.post('/login', (req, res, next) => {
           }
 
           // We are now logged in (that's why we can also send req.user)
-          console.log('******', req.user, '******');
+          console.log('Yo******', req.user, 'Sick******');
           res.status(200).json(theUser);
       });
   })(req, res, next);
@@ -108,7 +110,7 @@ router.post('/login', (req, res, next) => {
 
 
 //Start logout post route
-routes.post('/logout', (req, res, next) => {
+router.post('/logout', (req, res, next) => {
   // req.logout() is defined by passport
   req.logout();
   res.status(200).json({ message: 'Log out success!' });
@@ -125,7 +127,7 @@ user in the session and who the user is.
 If we are not logged in and we try to access to 
 /loggedin we will get this response 
 :{“message”: “Unauthorized”}.*/
-routes.get('/loggedin', (req, res, next) => {
+router.get('/loggedin', (req, res, next) => {
   // req.isAuthenticated() is defined by passport
   // if (req.isAuthenticated()) {
   //     res.status(200).json(req.user);
@@ -150,4 +152,4 @@ routes.get('/loggedin', (req, res, next) => {
 
 
 
-module.exports = routes;
+module.exports = router;

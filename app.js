@@ -80,12 +80,13 @@ app.use(cors({
 
 
 // ROUTES MIDDLEWARE STARTS HERE:
-//do we need const index?
+// do we need const index?
 const index = require('./routes/index');
 app.use('/', index);
 
 const userRoutes = require('./routes/user-routes');
 // app.use('/api/auth', userRoutes); //How do I add prexfix to my route  
 app.use('/api', userRoutes); //Leaving this one for meow
+// app.use('/', userRoutes); //Leaving this one for meow
 
 module.exports = app;
