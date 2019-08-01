@@ -8,6 +8,8 @@ const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
 //
+
+//
 const cors         = require('cors');
 // For Authentication
 const passport     = require('passport');
@@ -88,5 +90,9 @@ const userRoutes = require('./routes/user-routes');
 // app.use('/api/auth', userRoutes); //How do I add prexfix to my route  
 app.use('/api', userRoutes); //Leaving this one for meow
 // app.use('/', userRoutes); //Leaving this one for meow
+
+const surfBreakRoutes = require('./routes/surf-break-routes');
+app.use('/api', surfBreakRoutes); 
+
 
 module.exports = app;

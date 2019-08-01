@@ -4,6 +4,8 @@ const bcrypt     = require('bcryptjs');
 const passport   = require('passport');
 const User       = require('../models/User');
 
+
+/*Starting all user authentication  */
 //Start signup post route
 /*Using res.status() with error code and 
 sending message to be displayed on the frontend 
