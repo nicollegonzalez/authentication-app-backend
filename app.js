@@ -20,7 +20,7 @@ require('./configs/passport');
 
 
 mongoose
-  .connect('mongodb://localhost/authentication-app-backend', {useNewUrlParser: true})
+  .connect('mongodb://localhost/authentication-app-backend', {useNewUrlParser: true, useFindAndModify: false})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
